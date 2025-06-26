@@ -1,0 +1,39 @@
+{% extends 'expenses/base.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+<p><a href="{% url 'add_fixed_expense' %}" class="button-link"> <i class="bi bi-database-fill-add"></i> Novo Gasto Fixo</a></p>
+
+{% if expenses_with_end_date %}
+    <table>
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor Mensal</th>
+                <th>Início (Primeiro Mês)</th>
+                <th>Período (12 Meses)</th> 
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in expenses_with_end_date %}
+            <tr>
+                <td>{{ item.expense.description }}</td>
+                <td>R$ {{ item.expense.monthly_amount|floatformat:2 }}</td> 
+                <td>{{ item.expense.start_date|date:"m/Y" }}</td>
+                <td>{{ item.expense.start_date|date:"m/Y" }} - {{ item.end_date|date:"m/Y" }}</td> 
+                <td>
+                    <a href="{% url 'edit_fixed_expense' item.expense.pk %}" class="btnEdit"><i class="bi bi-pencil-square"></i></a>
+                    <a href="{% url 'delete_fixed_expense' item.expense.pk %}" class="btnDelete"><i class="bi bi-trash3"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Nenhum gasto fixo mensal registrado ainda.</p>
+{% endif %}
+
+{% endblock %}
+

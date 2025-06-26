@@ -1,0 +1,27 @@
+{% extends 'expenses/base.html' %}
+{% load l10n %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+{% if existing_salary and not object %}
+    <p>Já existe um salário de R$ {{ existing_salary.amount|floatformat:2|localize }} registrado para o ano {{ existing_salary.year }}.</p>
+    <p><a href="{% url 'edit_salary' existing_salary.pk %}">Editar Salário Existente</a> ou <a href="{% url 'salary_list' %}">Ver Todos os Salários</a></p>
+    <hr>
+    <p>Ou, se desejar, adicione um salário para um ano diferente abaixo:</p>
+{% elif object %}
+    <p>Editando o salário mensal (aplicável ao ano todo) para {{ object.year }}.</p>
+{% else %}
+    <p>Informe o salário mensal que será aplicado para todos os meses do ano selecionado.</p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar Salário</button>
+</form>
+
+{% if not object %}
+    <p style="margin-top: 20px;"><a href="{% url 'salary_list' %}">Ver Salários Já Cadastrados</a></p>
+{% endif %}
+{% endblock %}
+

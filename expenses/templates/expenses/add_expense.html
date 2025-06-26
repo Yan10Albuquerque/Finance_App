@@ -1,0 +1,30 @@
+{% extends 'expenses/base.html' %}
+
+
+{% block content %}
+<h2>{{ title }}</h2>
+<form method="post" id="expenseForm">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar Despesa</button>
+</form>
+
+<script>
+    const isInstallmentCheckbox = document.getElementById('id_is_installment');
+    const installmentsNumberField = document.getElementById('id_installments_number').closest('p'); 
+
+    function toggleInstallmentsField() {
+        if (isInstallmentCheckbox.checked) {
+            installmentsNumberField.style.display = '';
+        } else {
+            installmentsNumberField.style.display = 'none';
+            document.getElementById('id_installments_number').value = ''; 
+        }
+    }
+
+    toggleInstallmentsField();
+
+    isInstallmentCheckbox.addEventListener('change', toggleInstallmentsField);
+</script>
+{% endblock %}
+

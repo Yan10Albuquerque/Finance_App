@@ -1,0 +1,88 @@
+{% extends 'expenses/base.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+<div class="month-nav">
+    <form method="get">
+        <label for="month">Mês:</label>
+        <select name="month" id="month">
+            {% for m in months %}
+                <option value="{{ m }}" {% if m == current_month %}selected{% endif %}>{{ m }}</option>
+            {% endfor %}
+        </select>
+        <label for="year">Ano:</label>
+        <select name="year" id="year">
+            {% for y in years %}
+                <option value="{{ y }}" {% if y == current_year %}selected{% endif %}>{{ y }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Ver Saldo</button>
+    </form>
+</div>
+
+<div class="month-summary" >
+        <h3>Resumo para {{ month_name }}/{{ current_year }}</h3>
+        <p><strong>Salário Registrado (Anual):</strong> R$ {{ salary|floatformat:2 }}</p>
+        <p><strong>Total Despesas Variáveis (Parcelas):</strong> R$ {{ total_installments|floatformat:2 }}</p>
+        <p><strong>Total Gastos Fixos:</strong> R$ {{ total_fixed_expenses|floatformat:2 }}</p>
+        <p><strong>Saldo Restante:</strong> 
+            <span class="{% if balance >= 0 %}balance-positive{% else %}balance-negative{% endif %}">
+                R$ {{ balance|floatformat:2 }}
+            </span>
+        </p> 
+</div>
+
+
+<h3>Detalhes das Despesas do Mês</h3>
+
+<h4>Gastos Fixos</h4>
+{% if fixed_expenses_occurrences %}
+    <table>
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Data de Vencimento</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for occurrence in fixed_expenses_occurrences %}
+            <tr>
+                <td>{{ occurrence.fixed_expense.description }}</td>
+                <td>R$ {{ occurrence.amount|floatformat:2 }}</td>
+                <td>{{ occurrence.occurrence_date|date:"d/m/Y" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Nenhum gasto fixo encontrado para este mês.</p>
+{% endif %}
+
+<h4>Despesas Variáveis (Parcelas)</h4>
+{% if installments %}
+    <table>
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor da Parcela</th>
+                <th>Data de Vencimento</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for installment in installments %}
+            <tr>
+                <td>{{ installment.expense.description }}</td>
+                <td>R$ {{ installment.installment_amount|floatformat:2 }}</td>
+                <td>{{ installment.due_date|date:"d/m/Y" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Nenhuma parcela de despesa variável encontrada para este mês.</p>
+{% endif %}
+
+{% endblock %}
+

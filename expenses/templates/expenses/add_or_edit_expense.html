@@ -1,0 +1,38 @@
+{% extends 'expenses/base.html' %}
+
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+<p><a href="{% url 'add_expense' %}" class="button-link"><i class="bi bi-database-fill-add"></i> Nova Despesa</a></p>
+
+{% if expenses %}
+    <table>
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Data</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense.description }}</td>
+                <td>R$ {{ expense.total_amount|floatformat:2 }}</td>
+                <td>{{ expense.purchase_date|date:"d/m/Y" }}</td>
+                <td>
+                    <a href="{% url 'edit_expense' expense.pk %}" class="btnEdit"><i class="bi bi-pencil-square"></i></a>
+                    <a href="{% url 'delete_expense' expense.pk %}" class="btnDelete"><i class="bi bi-trash3"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Nenhuma despesa registrada ainda.</p>
+{% endif %}
+
+{% endblock %}
+

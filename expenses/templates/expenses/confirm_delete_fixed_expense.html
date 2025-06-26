@@ -1,0 +1,15 @@
+{% extends 'expenses/base.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+<p>Você tem certeza que deseja excluir o gasto fixo "<strong>{{ fixed_expense.description }}</strong>" (R$ {{ fixed_expense.monthly_amount }}/mês)?</p>
+<p><strong>Atenção:</strong> Todas as 12 ocorrências mensais associadas a este gasto fixo também serão excluídas.</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="delete-button"><i class="bi bi-trash3"></i> Sim, Excluir</button>
+    <a href="{% url 'fixed_expense_list' %}" style="margin-left: 15px; text-decoration: none; color: #337ab7;">Cancelar</a>
+</form>
+{% endblock %}
+

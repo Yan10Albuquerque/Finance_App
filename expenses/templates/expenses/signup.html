@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LIFE FINANCE - Registre-se</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+        <div class="logo">
+            <img src="{% static 'img/logo.png' %}" alt="">
+        </div>
+      <h1>LIFE FINANCE</h1>
+      <p class="subtitle">GESTÃO FINANCEIRA INTELIGENTE</p>
+      <h2>Registre-se</h2>
+      <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Nome" required />
+        <input type="email" placeholder="E-mail" required /> 
+        <input type="password" name="password" placeholder="Senha" required />
+        <input type="password" name="password_confirm" placeholder="Confirmação de Senha" required />
+        {% if messages %}
+          {% for message in messages %}
+            <div class="error">
+              {{ message }} 
+            </div>
+          {% endfor %}
+        {% endif %}
+        <button type="submit">Registrar</button>
+        <div class="a_box">
+          <a href="{% url 'login' %}" class="forgot-password">Já tem uma conta? Faça Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

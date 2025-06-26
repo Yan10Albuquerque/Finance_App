@@ -1,0 +1,29 @@
+# Ignorar ambiente virtual Python
+venv/
+.env/
+.venv/
+env/
+ENV/
+
+# Banco de dados local (SQLite)
+*.sqlite3
+*.db
+
+# Arquivos de configuração locais e variáveis sensíveis
+*.env
+config/local_settings.py
+
+# Arquivos de cache e temporários
+__pycache__/
+*.py[cod]
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# IDEs e editores
+.vscode/
+.idea/
+*.swp
+

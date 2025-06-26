@@ -1,0 +1,13 @@
+{% extends 'expenses/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+<p>Informe o salário para um mês/ano específico. Se já existir um salário para o período, ele será atualizado.</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar Salário</button>
+</form>
+{% endblock %}
+

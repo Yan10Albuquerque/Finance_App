@@ -1,0 +1,31 @@
+{% extends 'expenses/base.html' %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block title %}Perfil do Usuário{% endblock %}
+
+{% block content %} 
+<h2>Perfil do Usuário</h1>
+
+<div class="profile_info">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} 
+        <div class="divImg">
+            <img src="{{ user.image.url }}" alt="Imagem de Perfil" class="profile-image">
+        </div>
+        <label for="imagem">Atualizar Imagem de Perfil:</label>
+        <input type="file" name="imagem" id="imagem">
+        <label for="username">Nome de Usuário:</label>
+        <input type="text" name="username" id="username" value="{{ user.username }}">
+        <label for="email">Email:</label>   
+        <input type="email" name="email" id="email" value="{{ user.email }}" required>
+
+        <button type="submit">Salvar</button>
+    </form>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'expenses/base.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+<p>Você tem certeza que deseja excluir a despesa "<strong>{{ expense.description }}</strong>" (R$ {{ expense.total_amount }}/mês)?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="delete-button"><i class="bi bi-trash3"></i> Sim, Excluir</button>
+    <a href="{% url 'expense_list' %}" style="margin-left: 15px; text-decoration: none; color: #337ab7;">Cancelar</a>
+</form>
+{% endblock %}
+
