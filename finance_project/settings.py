@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ef!12%6w61i@cnu5=o!txu_k(5rwidtkx(p!h=tw=%=u+8$mr#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['finance_app.onrender.com']
+ALLOWED_HOSTS = []
 
 
 
@@ -111,8 +111,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),  # Pasta local para CSS/JS/img
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
 MEDIA_URL = '/media/'  # URL base para acessar arquivos de mídia
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Diretório físico onde os arquivos serão salvos
