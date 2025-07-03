@@ -6,6 +6,7 @@
 <form method="post" id="expenseForm">
     {% csrf_token %}
     {{ form.as_p }}
+    <p style="color: red"> Se a despesa for à vista, adicione uma única parcela. </p>
     <button type="submit">Salvar Despesa</button>
 </form>
 

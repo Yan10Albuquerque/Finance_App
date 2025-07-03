@@ -255,6 +255,11 @@ class DeleteFixedExpenseView(LoginRequiredMixin, DeleteView):
 class MonthlyBalanceView(LoginRequiredMixin, TemplateView):
     template_name = 'expenses/monthly_balance.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login') 
+        return super().dispatch(request, *args, **kwargs)
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         today = timezone.now().date()
