@@ -1,4 +1,6 @@
-Passo 1 - Criar ambiente virtual e ativa=lo
+Para utilizar a plataforma siga os passos abaixo.
+
+Passo 1 - Criar ambiente virtual e ativa-lo
 Passo 2 - Instalar dependências 'pip install -r requirements.txt'
 Passo 3 - Realizar migrações 'python manage.py makemigrations' e 'python manage.py migrate'
 Passo 4 - Rodar o servidor 'python manage.py runserver'
